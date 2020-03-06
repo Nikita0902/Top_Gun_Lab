@@ -1,0 +1,305 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+
+namespace first_topGunLab
+{
+   //колекции сделать 
+
+
+
+    class Program
+    {
+
+        public delegate int oper(int a, int b, int c);
+
+        public static int result(int a, int b, int c)
+        {
+            return a + 4 * (6 * b + c + 10);
+        }
+
+
+        static void Main(string[] args)
+        {
+
+
+            Console.WriteLine("Today meet two Best teams, we will see final of the Panna_Battle World Cup  ,which takes place in Sidney\n");
+
+            Console.WriteLine("Our Players play up to one forwarding between legs or for goals scored before time runs out, forwarding between needs gives 5 points and automatic victory\n");
+
+            Console.WriteLine("Enter the date of the match(dd/mm/yyyy):");
+            string date = Console.ReadLine();
+            string pattern = @"\b(?<month>\d{1,2})/(?<day>\d{1,2})/(?<year>\d{2,4})\b";
+            while (true)
+            {
+                if (!Regex.IsMatch(date, pattern))
+                {
+                    Console.WriteLine("Incorrect format of date!");
+                    date = Console.ReadLine();
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+
+            Console.WriteLine("Enter The name the first team:");
+            string name_team_Player1 = Console.ReadLine();
+
+            Console.WriteLine("Enter The name the second team:");
+            string name_team_Player2 = Console.ReadLine();
+
+            Console.Clear();
+
+            Panna_Battle m = new Panna_Battle(date, name_team_Player1, name_team_Player2);
+
+            Console.WriteLine("enter the skill and mood of " + name_team_Player1 + " on the first team  ");
+            Console.WriteLine("skill from 1 to 99,mood from 1 to 99");
+            try
+            {
+                int x = 2;
+                string str = string.Empty;
+                var _i = Enumerable.Range(0, x).Select(v=> v = !IsValid(str = Console.ReadLine()) ? throw new Exception($"Incorrect input data : {str}") : int.Parse(str)).ToArray();
+                Console.WriteLine(new string('=', 15));
+                foreach (var item in _i)
+                    Console.WriteLine(item);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR : " + ex.Message);
+            }
+            finally
+            {
+
+                Console.WriteLine("Press Enter to access work .");
+                Console.ReadKey();
+            }
+            Console.Clear();
+
+            
+
+            characteristics_teams Char_pl = new characteristics_teams();
+            int res1 = Char_pl.Char_players();
+
+            Console.WriteLine("Enter the tactics " + name_team_Player1 + " coach and his win_tour ");
+            Console.WriteLine(" tactics from 1 to 100, win_tour from 1 to 100");
+            try
+            {
+                int b = 2;
+                string str = string.Empty;
+                var i_ = Enumerable.Range(0, b).Select(v => v = !OgrValid(str = Console.ReadLine()) ? throw new Exception($"Incorrect input data : {str}") : int.Parse(str)).ToArray();
+                Console.WriteLine(new string('=', 15));
+                foreach (var item in i_)
+                    Console.WriteLine(item);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR : " + ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Press Enter to access work .");
+                Console.ReadKey();
+            }
+            Console.Clear();
+    
+            int exp_coach = Char_pl.Tactics();
+            int exp_coach1 = Char_pl.Win_tour();
+
+
+            Console.WriteLine("enter the skill and mood of  " + name_team_Player2 + " on the second team");
+            Console.WriteLine("skill from 1 to 99,mood from 1 to 99");
+            try
+            {
+                int x = 2;
+                string str = string.Empty;
+                var _i = Enumerable.Range(0, x).Select(v => v = !IsValid(str = Console.ReadLine()) ? throw new Exception($"Incorrect input data : {str}") : int.Parse(str)).ToArray();
+                Console.WriteLine(new string('=', 15));
+                foreach (var item in _i)
+                    Console.WriteLine(item);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR : " + ex.Message);
+            }
+            finally
+            {
+
+                Console.WriteLine("Press Enter to access work .");
+                Console.ReadKey();
+            }
+            Console.Clear();
+
+
+            characteristics_teams Char_pl2 = new characteristics_teams();
+            int res2 = Char_pl2.Char_players();
+
+
+            Console.WriteLine("Enter the tactics " + name_team_Player2 + " coach and his win_tour ");
+            Console.WriteLine(" tactics from 1 to 100, win_tour from 1 to 100");
+            try
+            {
+                int b = 2;
+                string str = string.Empty;
+                var i_ = Enumerable.Range(0, b).Select(v => v = !OgrValid(str = Console.ReadLine()) ? throw new Exception($"Incorrect input data : {str}") : int.Parse(str)).ToArray();
+                Console.WriteLine(new string('=', 15));
+                foreach (var item in i_)
+                    Console.WriteLine(item);
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR : " + ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Press Enter to access work .");
+                Console.ReadKey();
+            }
+            Console.Clear();
+
+
+
+            int exp_coach2 = Char_pl2.Tactics();
+            int exp_coach3 = Char_pl2.Win_tour();
+
+
+            oper _v = result;
+            int all_result_game = _v(res1, exp_coach, exp_coach1);
+
+
+
+            if (res1 > res2)
+            {
+                Console.WriteLine("The " + name_team_Player1 + " is win on The World Cup " + date);
+                Console.WriteLine("Our " + name_team_Player1 + " is win with score 5 : 0,and this is an automatic victory");
+
+            }
+            else if (res1 < res2)
+            {
+                Console.WriteLine("The " + name_team_Player2 + " is win  on The World Cup " + date);
+                Console.WriteLine("Our " + name_team_Player2 + " is win with score 3 : 0, time is over");
+
+            }
+            else
+            {
+                Console.WriteLine("Match finished with score 0 : 0 ");
+                Console.WriteLine("And now we will see additional game");
+            }
+            Console.ReadLine();
+        }
+
+        public class Panna_Battle
+        {
+            public string date;
+            public string name_team_Player1;
+            public string name_team_Player2;
+
+            public Panna_Battle(string date, string name_team_Player1, string name_name_team_Player2)
+            {
+                date = this.date;
+                name_team_Player1 = this.name_team_Player1;
+                name_team_Player2 = this.name_team_Player2;
+
+            }
+
+
+        }
+        interface Coach
+        {
+            int Tactics();
+            int Win_tour();
+
+        }
+        public class characteristics_teams : Coach
+        {
+            public int skill { get; set; }
+
+            public int mood_players { get; set; }
+
+            public int tactics { get; set; }
+
+            public int Level_game { get; set; }
+
+            public int win_tour { get; set; }
+
+            public int goals { get; set; }
+
+            public int Char_players()
+            {
+                List<int> all_characteristics = new List<int>(5);
+                for (int i = 1; i <= 1; i++)
+                {
+                    Console.WriteLine("player" + i);
+                    skill = Convert.ToInt32(Console.ReadLine());
+                    mood_players = Convert.ToInt32(Console.ReadLine());
+                    all_characteristics.Add(skill * mood_players);
+
+                }
+                int result = 0;
+                foreach (int i in all_characteristics)
+                {
+                    result += i;
+                }
+                return result;
+            }
+
+
+
+            public int Tactics()
+            {
+                Console.WriteLine("Tactics:");
+                tactics = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Level_game: ");
+                Level_game = Convert.ToInt32(Console.ReadLine());
+
+                return tactics * Level_game;
+            }
+
+            public int Win_tour()
+            {
+                Console.WriteLine("Win_tur: ");
+                win_tour = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Quantity_goals: ");
+                goals = Convert.ToInt32(Console.ReadLine());
+
+                return win_tour * goals;
+            }
+
+
+
+        }
+        static bool IsValid(string num)
+        {
+            if (int.TryParse(num, out int res))
+            {
+                if (res < 99 && res >= 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        static bool OgrValid(string num1)
+        {
+            if(int.TryParse(num1,out int res))
+            {
+                if (res < 100 && res >= 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}
